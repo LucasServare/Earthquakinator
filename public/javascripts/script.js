@@ -1,0 +1,116 @@
+var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
+
+//On user request, perform an api call and get earthquake data.
+$("#button").click(function() {
+
+  $('#button').html('Submitting...');
+  $('#button').prop('disabled', true);
+
+  start_date = $("#start_date").val();
+  end_date = $("#end_date").val();
+
+  if (Math.abs((new Date(start_date) - new Date(end_date)) / (1000 * 60 * 60 * 24)) > 7) {
+    alert("Let's be nice to the api. Please choose a range 7 days or lower.");
+		$('#button').html('Refresh');
+		$("#start_date").val('');
+	  $("#end_date").val('');
+		$('#button').prop('disabled', false);
+  }
+  else {
+    url += '&starttime='+ start_date + '&endtime=' + end_date;
+     $.get(url, function(data) {
+			$('#button').html('Refresh');
+ 			$('#button').prop('disabled', false);
+    //Change earthquake count.
+    $("#eq_count").html(data.features.length);
+		createDict(data);
+    //Add all magnitudes to an array, and begin calculating the average magnitude.
+		magnitude_sum = 0;
+
+    for (i=0; i < data.features.length; i++) {
+      magnitude_sum += data.features[i].properties.mag;
+			$("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
+	}});
+}});
+
+//Loop through a given array and count the number of times each element in the array appears.
+
+function createDict(arr) {
+	magnitudes_array = [];
+	for (i = 0; i < arr.features.length; i++) {
+		magnitudes_array.push(arr.features[i].properties.mag);
+	}
+	//Run through magnitudes_array and round it to the nearest tenth.
+	for (i = 0; i < magnitudes_array.length; i++) {
+		magnitudes_array[i] = Math.round(magnitudes_array[i] * 10)/10
+	}
+	distinctValuesCount(magnitudes_array);
+}
+
+
+function distinctValuesCount(arr) {
+	count_array = [];
+	arr.sort();
+	for (i = 0; i < arr.length; i++) {
+	current_num = arr[i];
+	count = 0;
+		for (j = 0; j < arr.length; j++) {
+			 if (current_num === arr[j]) {
+				 count++;
+		 	 }
+		 }
+		 already_exists = false;
+	 for (l = 0; l < count_array.length; l++) {
+		 if (count_array[l][0] === current_num) {
+			 already_exists = true;
+		 }
+	 }
+		 if (already_exists == false) {
+			 count_array.push([current_num, count]);
+		 }
+	 }
+
+magnitudes_x = [];
+magnitudes_y = [];
+
+ 	for (i = 0; i < count_array.length; i++) {
+	 	magnitudes_x.push(count_array[i][0]);
+	 	magnitudes_y.push(count_array[i][1]);
+	}
+
+magnitudes_x.unshift('x');
+magnitudes_y.unshift('Occurences');
+
+	//Graph pretty things!
+	var chart = c3.generate({
+		tooltip: {
+			format: {
+				title: function (d) {return 'Magnitude: ' + d }
+			}
+		},
+		data: {
+			x: 'x',
+				columns: [
+				magnitudes_x,
+				magnitudes_y
+				],
+			type: 'bar'
+		},
+		axis: {
+        x: {
+          label: {
+            text: 'Magnitude',
+			  		position: 'outer-center'
+          }
+        },
+				y: {
+					label: {
+						text: 'Occurences',
+						position: 'outer-middle'
+					}
+				}
+		}
+	});
+
+	return count_array;
+}
