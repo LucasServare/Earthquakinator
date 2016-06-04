@@ -21,20 +21,26 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
   <body>
-
-  <center>
-  From:<br>
-  <input type="date" id="start_date"><br>
-  <br>To:<br>
-  <input type="date" id="end_date"><br>
-  <br><button id="button" class="btn btn-default"> Submit </button>
-  </center>
-
-    <h1>There were <span id="eq_count">1</span> earthquakes in that timeframe.</h1>
-    <h1> Their average magnitude was <span id="eq_mag_avg">1</span>.<h1>
-
-
-    <div id="chart"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 text-center">
+      From:<br>
+      <input type="date" id="start_date"><br>
+      <br>To:<br>
+      <input type="date" id="end_date"><br>
+      <br><button id="button" class="btn btn-default"> Submit </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 text-center">
+      <div id="earthquake-stats">
+        <h1>There were <span id="eq_count">1</span> earthquakes in that timeframe.</h1>
+        <h1> Their average magnitude was <span id="eq_mag_avg">1</span>.<h1>
+        <div id="chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
   </body>
   <script type="text/javascript" src="/javascripts/script.js"></script>
 </html>

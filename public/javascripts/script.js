@@ -1,3 +1,6 @@
+//Hide some stuff until we have data to be shown.
+$("#earthquake-stats").hide();
+
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
   disableButton();
@@ -30,6 +33,7 @@ function getEarthquakeData() {
   for (i=0; i < data.features.length; i++) {
   magnitude_sum += data.features[i].properties.mag;
   $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
+  $("#earthquake-stats").show();
   }});
 }
 
