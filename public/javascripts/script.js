@@ -1,37 +1,47 @@
-var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
-
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
-
-  $('#button').html('Submitting...');
-  $('#button').prop('disabled', true);
-
+  disableButton();
   start_date = $("#start_date").val();
   end_date = $("#end_date").val();
+  if (Math.abs((new Date(start_date) - new Date(end_date)) / (1000 * 60 * 60 * 24)) <= 7) {
+        getEarthquakeData();
+      }
+    else {
+      if (confirm("Are you sure? This is a lot of data to ask for. It may take a while to get it, and it will be taxing to the poor server api.")) {
+      getEarthquakeData();
+      }
+      else {
+        alert("Good call. I'm sure they'll appreciate it.");
+        enableButton();
+      }
+    }
+    });
 
-  if (Math.abs((new Date(start_date) - new Date(end_date)) / (1000 * 60 * 60 * 24)) > 7) {
-    alert("Let's be nice to the api. Please choose a range 7 days or lower.");
-		$('#button').html('Refresh');
-		$("#start_date").val('');
-	  $("#end_date").val('');
-		$('#button').prop('disabled', false);
-  }
-  else {
-    url += '&starttime='+ start_date + '&endtime=' + end_date;
-     $.get(url, function(data) {
-			$('#button').html('Refresh');
- 			$('#button').prop('disabled', false);
-    //Change earthquake count.
-    $("#eq_count").html(data.features.length);
-		createDict(data);
-    //Add all magnitudes to an array, and begin calculating the average magnitude.
-		magnitude_sum = 0;
+function getEarthquakeData() {
+  var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
+  url += '&starttime='+ start_date + '&endtime=' + end_date;
+  $.get(url, function(data) {
+  //Change earthquake count.
+  $("#eq_count").html(data.features.length);
+  createDict(data);
+  //Add all magnitudes to an array, and begin calculating the average magnitude.
+  magnitude_sum = 0;
 
-    for (i=0; i < data.features.length; i++) {
-      magnitude_sum += data.features[i].properties.mag;
-			$("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
-	}});
-}});
+  for (i=0; i < data.features.length; i++) {
+  magnitude_sum += data.features[i].properties.mag;
+  $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
+  }});
+}
+
+function disableButton() {
+  $('#button').html('Retrieving...');
+  $('#button').prop('disabled', true);
+}
+
+function enableButton() {
+  $('#button').html('Submit');
+  $('#button').prop('disabled', false);
+}
 
 //Loop through a given array and count the number of times each element in the array appears.
 
@@ -111,6 +121,6 @@ magnitudes_y.unshift('Occurences');
 				}
 		}
 	});
-
-	return count_array;
+  //Only want to re-enable button AFTER graph renders.
+  enableButton();
 }
