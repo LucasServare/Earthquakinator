@@ -2,22 +2,32 @@
 <html>
   <head>
     <title> Earthquakinator </title>
+    <!--Load Jquery -->
+      <script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <!-- Load c3.css -->
     <link rel="stylesheet" href='/stylesheets/c3.css' type="text/css">
     <!-- Load d3.js and c3.js -->
   <script src='/stylesheets/d3.min.js' charset="utf-8"></script>
   <script src='/stylesheets/c3.min.js'></script>
+  <!-- Load Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
   <body>
-
 
   <center>
   From:<br>
   <input type="date" id="start_date"><br>
   <br>To:<br>
   <input type="date" id="end_date"><br>
-  <br><button id="button"> Submit </button>
+  <br><button id="button" class="btn btn-default"> Submit </button>
   </center>
 
     <h1>There were <span id="eq_count">1</span> earthquakes in that timeframe.</h1>
@@ -26,6 +36,5 @@
 
     <div id="chart"></div>
   </body>
-  <script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
   <script type="text/javascript" src="/javascripts/script.js"></script>
 </html>
