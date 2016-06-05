@@ -18,7 +18,7 @@ $("#button").click(function() {
         enableButton();
       }
     }
-    });
+});
 
 function getEarthquakeData() {
   var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
@@ -125,6 +125,20 @@ magnitudes_y.unshift('Occurences');
 				}
 		}
 	});
-  //Only want to re-enable button AFTER graph renders.
+  //Here because we only want to re-enable button AFTER graph renders.
   enableButton();
 }
+
+var myData;
+function earthquakesInLastHour() {
+  var url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
+  $.get(url, function(data) {
+    for (i=0; i < data.features.length; i++){
+      console.log(data.features[i].properties.mag);
+      $("#eq-last-hour").append("<br>Magnitude " + data.features[i].properties.mag + " located " + data.features[i].properties.place + "." + "<br>");
+    }
+    myData = data
+  });
+}
+
+earthquakesInLastHour();
