@@ -1,5 +1,6 @@
 //Hide some stuff until we have data to be shown.
 $("#earthquake-stats").hide();
+$("#eq-biggest").hide();
 
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
@@ -27,6 +28,7 @@ function getEarthquakeData() {
   //Change earthquake count.
   $("#eq_count").html(data.features.length);
   createDict(data);
+  largestEarthquake(data);
   //Add all magnitudes to an array, and begin calculating the average magnitude.
   magnitude_sum = 0;
 
@@ -129,16 +131,26 @@ magnitudes_y.unshift('Occurences');
   enableButton();
 }
 
-var myData;
+
 function earthquakesInLastHour() {
   var url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
   $.get(url, function(data) {
     for (i=0; i < data.features.length; i++){
-      console.log(data.features[i].properties.mag);
       $("#eq-last-hour").append("<br>Magnitude " + data.features[i].properties.mag + " located " + data.features[i].properties.place + "." + "<br>");
     }
-    myData = data
   });
+}
+
+function largestEarthquake(data) {
+  var largest = data.features[0];
+  for (i = 0; i < data.features.length; i++) {
+    if (data.features[i].properties.mag > largest.properties.mag) {
+    largest = data.features[i];
+    }
+  }
+  $("#biggest-mag").html(largest.properties.mag);
+  $("#biggest-loc").html(largest.properties.place);
+  $("#eq-biggest").show();
 }
 
 earthquakesInLastHour();
