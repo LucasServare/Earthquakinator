@@ -131,16 +131,6 @@ magnitudes_y.unshift('Occurences');
   enableButton();
 }
 
-
-function earthquakesInLastHour() {
-  var url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
-  $.get(url, function(data) {
-    for (i=0; i < data.features.length; i++){
-      $("#eq-last-hour").append("<br>Magnitude " + data.features[i].properties.mag + " located " + data.features[i].properties.place + "." + "<br>");
-    }
-  });
-}
-
 function largestEarthquake(data) {
   var largest = data.features[0];
   for (i = 0; i < data.features.length; i++) {
@@ -152,5 +142,3 @@ function largestEarthquake(data) {
   $("#biggest-loc").html(largest.properties.place);
   $("#eq-biggest").show();
 }
-
-earthquakesInLastHour();
