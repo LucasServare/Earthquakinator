@@ -9,3 +9,7 @@ a {
 .top-padding {
   margin-top: 10px;
 }
+
+.earthquakes {
+    display: none;
+}

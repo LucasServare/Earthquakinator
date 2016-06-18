@@ -1,7 +1,3 @@
-//Hide some stuff until we have data to be shown.
-$("#earthquake-stats").hide();
-$("#eq-biggest").hide();
-
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
   disableButton();
@@ -35,7 +31,6 @@ function getEarthquakeData() {
   for (i=0; i < data.features.length; i++) {
   magnitude_sum += data.features[i].properties.mag;
   $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
-  $("#earthquake-stats").show();
   }});
 }
 
@@ -129,6 +124,8 @@ magnitudes_y.unshift('Occurences');
 	});
   //Here because we only want to re-enable button AFTER graph renders.
   enableButton();
+  //Once the graph is loaded, unhide the div with earthquake info..
+  $('.earthquakes').show();
 }
 
 function largestEarthquake(data) {
@@ -140,5 +137,4 @@ function largestEarthquake(data) {
   }
   $("#biggest-mag").html(largest.properties.mag);
   $("#biggest-loc").html(largest.properties.place);
-  $("#eq-biggest").show();
 }
