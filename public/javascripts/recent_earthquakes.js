@@ -22,6 +22,7 @@ function earthquakesInLastHour(choice) {
 
 $('#selector').change(function() {
   var choice = $('#selector').val();
+  $("#type").html(choice);
   earthquakesInLastHour(choice)
 });
 
