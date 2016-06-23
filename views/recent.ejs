@@ -44,13 +44,19 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center">
-          <label for="sel1">Find earthquakes in the last</label>
-          <select id="selector">
-            <option value="hour">Hour</option>
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-          </select>
-      <span id="eq-last-hour"><h2>Earthquakes within the last <span id="type">hour</span>:</h2></span>
+        <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="time" id="hour" value="hour" autocomplete="off" checked> Hour
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="day" value="day" autocomplete="off"> Day
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="week" value="week" autocomplete="off"> Week
+        </label>
+      </div>
+      <br>
+      <span id="eq-last"></span>
     </div>
   </div>
 </div>
