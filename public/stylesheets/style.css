@@ -13,3 +13,8 @@ a {
 .earthquakes {
     display: none;
 }
+
+#map-container {
+  height: 50%;
+  width: 100%;
+}
