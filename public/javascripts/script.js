@@ -1,9 +1,30 @@
+var today = moment().format('YYYY[-]MM[-]DD');
+var choice = $('input[name=time]:checked').val()
+
+$('input[name=time]').change(function() {
+  choice = $('input[name=time]:checked').val()
+});
+
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
   disableButton();
-  start_date = $("#start_date").val();
-  end_date = $("#end_date").val();
-  if (Math.abs((new Date(start_date) - new Date(end_date)) / (1000 * 60 * 60 * 24)) <= 30) {
+  end_date = today;
+  switch(choice) {
+    case 'oneweek':
+      start_date = moment().subtract(7, 'days').format('YYYY[-]MM[-]DD');
+      break;
+    case 'onemonth':
+      start_date = moment().subtract(30, 'days').format('YYYY[-]MM[-]DD');
+      break;
+    case 'twomonths':
+      start_date = moment().subtract(60, 'days').format('YYYY[-]MM[-]DD');
+      break;
+    case 'custom':
+      start_date = $("#start_date").val();
+      end_date = $("#end_date").val();
+    break;
+  }
+  if (Math.abs((new Date(start_date) - new Date(end_date)) / (1000 * 60 * 60 * 24)) < 61) {
         getEarthquakeData();
       }
     else {

@@ -17,7 +17,8 @@
 
   <!-- Load Datamaps -->
     <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-
+  <!--- Load Moment for dealing with dates -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
   <!-- Load Bootstrap -->
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -30,6 +31,28 @@
 <% include partials/header.ejs %>
   </head>
   <body>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+        <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="time" id="oneweek" value="oneweek" autocomplete="off" checked>7 Days
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="onemonth" value="onemonth" autocomplete="off">1 Month
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="twomonths" value="twomonths" autocomplete="off">2 Months
+       </label>
+       <label class="btn btn-primary">
+         <input type="radio" name="time" id="custom" value="custom" autocomplete="off">Custom
+      </label>
+      </div>
+      <br>
+      <span id="eq-last"></span>
+    </div>
+  </div>
+</div>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
@@ -56,22 +79,21 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center">
         <div id="earthquake-stats">
-          <h1>There were <span id="eq_count"></span> earthquakes in that timeframe.</h1>
-          <h1> Their average magnitude was <span id="eq_mag_avg">1</span>.<h1>
+          <h3>There were <span id="eq_count"></span> earthquakes in that timeframe.</h3>
+          <h3> Their average magnitude was <span id="eq_mag_avg">1</span>.<h3>
         </div>
       </div>
     </div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
       <br>
-      <span id="eq-biggest"><h1>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h1></span>
+      <span id="eq-biggest"><h3>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h3></span>
     </div>
   </div>
 </div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class='text-center earthquakes'><h1>Here are some of the largest earthquakes shown on a map:</h1></div>
+      <div class='text-center earthquakes'><h3>Here are some of the largest earthquakes shown on a map:</h3></div>
       <div class="center-block" id="map-container"></div>
 </div>
   </body>
