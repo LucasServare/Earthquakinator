@@ -34,6 +34,7 @@
 
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center">
+          Choose a date range, or create your own:<br><br>
         <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary active">
           <input type="radio" name="time" id="oneweek" value="oneweek" autocomplete="off" checked>7 Days
@@ -55,17 +56,17 @@
 </div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center">
+    <div class="col-md-6 col-md-offset-3 text-center" id="custom-choice">
       Enter a date range for the time period you want:
       <br>
       <br>
-    </div>
-  </div>
   <div class="row">
           <div class="col-md-4 col-md-offset-4 text-center">
             <input type="date" id="start_date"> -
             <input type="date" id="end_date">
           </div>
+        </div>
+      </div>
       <div class="col-md-4 col-md-offset-4 text-center">
         <button id="button" class="btn btn-default top-padding"> Submit </button>
       </div>

@@ -3,6 +3,11 @@ var choice = $('input[name=time]:checked').val()
 
 $('input[name=time]').change(function() {
   choice = $('input[name=time]:checked').val()
+  if (choice == 'custom') {
+    $('#custom-choice').fadeIn(350);
+    return;
+  }
+  $('#custom-choice').hide()
 });
 
 //On user request, perform an api call and get earthquake data.
