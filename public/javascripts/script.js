@@ -192,9 +192,11 @@ function createDatamap(data) {
 }
 
 function drawDatamap() {
+//Clear the map if one exists. Prevents creating duplicate maps.
+$('#map-container').html('')
 
   var map = new Datamap({
-      element: document.getElementById('map-container'),
+      element: document.getElementById('map-container'), //tried using Jquery here, didn't work.
       scope: 'world',
       responsive: true,
       geographyConfig: {
