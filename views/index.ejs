@@ -12,6 +12,12 @@
     <!-- Load d3.js and c3.js -->
   <script src='/stylesheets/d3.min.js' charset="utf-8"></script>
   <script src='/stylesheets/c3.min.js'></script>
+  <!--Load Topojson -->
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+
+  <!-- Load Datamaps -->
+    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+
   <!-- Load Bootstrap -->
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -58,9 +64,15 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
       <br>
-      <span id="eq-biggest"><h2>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, located <span id="biggest-loc"></span>.</h2></span>
+      <span id="eq-biggest"><h1>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h1></span>
     </div>
   </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class='text-center earthquakes'><h1>Here are some of the largest earthquakes shown on a map:</h1></div>
+      <div class="center-block" id="map-container"></div>
 </div>
   </body>
   <script type="text/javascript" src="/javascripts/script.js"></script>

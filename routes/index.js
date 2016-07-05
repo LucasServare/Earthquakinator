@@ -5,8 +5,8 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/maps', function(req, res, next) {
-  res.render('maps');
+router.get('/about', function(req, res, next) {
+  res.render('about');
 });
 
 router.get('/recent', function(req, res, next) {
