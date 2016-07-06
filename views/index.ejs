@@ -5,37 +5,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Load Jquery -->
-      <script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <!-- Load c3.css -->
     <link rel="stylesheet" href='/stylesheets/c3.css' type="text/css">
     <!-- Load d3.js and c3.js -->
-  <script src='/stylesheets/d3.min.js' charset="utf-8"></script>
-  <script src='/stylesheets/c3.min.js'></script>
-  <!--Load Topojson -->
+    <script src='/stylesheets/d3.min.js' charset="utf-8"></script>
+    <script src='/stylesheets/c3.min.js'></script>
+    <!--Load Topojson -->
     <script src="http://d3js.org/topojson.v1.min.js"></script>
 
-  <!-- Load Datamaps -->
+    <!-- Load Datamaps -->
     <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-  <!--- Load Moment for dealing with dates -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-  <!-- Load Bootstrap -->
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!--- Load Moment for dealing with dates -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <!-- Load Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<% include partials/header.ejs %>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <% include partials/header.ejs %>
   </head>
   <body>
-
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3 text-center">
-          Choose a date range, or create your own:<br><br>
-        <div class="btn-group" data-toggle="buttons">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        Choose a date range, or create your own:<br><br>
+      <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary active">
           <input type="radio" name="time" id="oneweek" value="oneweek" autocomplete="off" checked>7 Days
         </label>
@@ -44,37 +43,35 @@
         </label>
         <label class="btn btn-primary">
           <input type="radio" name="time" id="twomonths" value="twomonths" autocomplete="off">2 Months
-       </label>
-       <label class="btn btn-primary">
+        </label>
+        <label class="btn btn-primary">
          <input type="radio" name="time" id="custom" value="custom" autocomplete="off">Custom
-      </label>
+        </label>
       </div>
-      <br>
-      <span id="eq-last"></span>
     </div>
   </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center" id="custom-choice">
-      Enter a date range for the time period you want:
-      <br>
-      <br>
-  <div class="row">
-          <div class="col-md-4 col-md-offset-4 text-center">
-            <input type="date" id="start_date"> -
-            <input type="date" id="end_date">
-          </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center" id="custom-choice">
+        Enter a date range for the time period you want:
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+              <input type="date" id="start_date"> -
+              <input type="date" id="end_date">
+            </div>
         </div>
       </div>
-      <div class="col-md-4 col-md-offset-4 text-center">
-        <button id="button" class="btn btn-default top-padding"> Submit </button>
-      </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div id="chart"></div>
+        <div class="col-md-4 col-md-offset-4 text-center">
+          <button id="button" class="btn btn-default top-padding"> Submit </button>
+        </div>
     </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div id="chart"></div>
+        </div>
+      </div>
   </div>
   <div class="container-fluid earthquakes">
     <div class="row">
@@ -85,18 +82,19 @@
         </div>
       </div>
     </div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 text-center">
-      <br>
-      <span id="eq-biggest"><h3>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h3></span>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <br>
+        <span id="eq-biggest"><h3>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h3></span>
+      </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
+  <div class="container-fluid">
+    <div class="row">
       <div class='text-center earthquakes'><h3>Here are some of the largest earthquakes shown on a map:</h3></div>
       <div class="center-block" id="map-container"></div>
-</div>
+    </div>
+  </div>
   </body>
   <script type="text/javascript" src="/javascripts/script.js"></script>
 </html>
