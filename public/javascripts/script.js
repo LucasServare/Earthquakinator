@@ -47,18 +47,21 @@ function getEarthquakeData() {
   var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
   url += '&starttime='+ start_date + '&endtime=' + end_date;
   $.get(url, function(data) {
-  //Change earthquake count.
-  $("#eq_count").html(data.features.length);
-  createDict(data);
-  largestEarthquake(data);
-  //Add all magnitudes to an array, and begin calculating the average magnitude.
-  magnitude_sum = 0;
+    //Change earthquake count.
+    $("#eq_count").html(data.features.length);
+    createDict(data);
+    largestEarthquake(data);
+    createDatamap(data)
+    //Add all magnitudes to an array, and begin calculating the average magnitude.
+    magnitude_sum = 0;
 
-  for (i=0; i < data.features.length; i++) {
-  magnitude_sum += data.features[i].properties.mag;
-  $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
-  }
-  createDatamap(data);
+    for (i=0; i < data.features.length; i++) {
+    magnitude_sum += data.features[i].properties.mag;
+    $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
+    }
+    $('#stat-block-1').css('visibility', 'visible').hide().fadeIn(1000);
+    $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000)
+    $('#stat-block-3').delay(2000).css('visibility', 'visible').hide().fadeIn(1000);
   });
 }
 
@@ -152,8 +155,6 @@ magnitudes_y.unshift('Occurences');
 	});
   //Here because we only want to re-enable button AFTER graph renders.
   enableButton();
-  //Once the graph is loaded, unhide the div with earthquake info..
-  $('.earthquakes').show();
 }
 
 function largestEarthquake(data) {
@@ -170,6 +171,10 @@ function largestEarthquake(data) {
 //Grab data from external api and add them as objects to an array.
 
 function createDatamap(data) {
+  //Since #map-container starts hidden, its height and width are set to 0. We use this to  set the height and width after the div is shown.
+  $('#map-container').height('100%');
+  $('#map-container').width('100%');
+
   eqObjects = [];
   for (i=0; i < data.features.length; i++) {
     if (data.features[i].properties.mag != null) {
@@ -291,10 +296,9 @@ $('#map-container').html('')
               '</div>'].join('');
       }
   });
+
+  //Make the map responsive by resizing it whenever the window is resized.
+  $(window).resize(function() {
+    map.resize();
+  });
 }
-
-
-//Makde the map responsive by resizing it whenever the window is resized.
-$(window).resize(function() {
-  map.resize();
-});

@@ -10,15 +10,20 @@ a {
   margin-top: 10px;
 }
 
-.earthquakes {
-    display: none;
-}
-
-#map-container {
-  height: 100%;
-  width: 100%;
-}
-
 #custom-choice {
   display: none;
+}
+
+#stat-block-1 {
+  visibility: hidden;
+}
+
+#stat-block-2 {
+  visibility: hidden;
+}
+
+#stat-block-3 {
+  visibility: hidden;
+  height: 80%;
+  width: 80%;
 }

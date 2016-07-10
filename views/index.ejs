@@ -31,26 +31,26 @@
     <% include partials/header.ejs %>
   </head>
   <body>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center">
-        Choose a date range, or create your own:<br><br>
-      <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary active">
-          <input type="radio" name="time" id="oneweek" value="oneweek" autocomplete="off" checked>7 Days
-        </label>
-        <label class="btn btn-primary">
-          <input type="radio" name="time" id="onemonth" value="onemonth" autocomplete="off">1 Month
-        </label>
-        <label class="btn btn-primary">
-          <input type="radio" name="time" id="twomonths" value="twomonths" autocomplete="off">2 Months
-        </label>
-        <label class="btn btn-primary">
-         <input type="radio" name="time" id="custom" value="custom" autocomplete="off">Custom
-        </label>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          Choose a date range, or create your own:<br><br>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <input type="radio" name="time" id="oneweek" value="oneweek" autocomplete="off" checked>7 Days
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="time" id="onemonth" value="onemonth" autocomplete="off">1 Month
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="time" id="twomonths" value="twomonths" autocomplete="off">2 Months
+          </label>
+          <label class="btn btn-primary">
+           <input type="radio" name="time" id="custom" value="custom" autocomplete="off">Custom
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center" id="custom-choice">
         Enter a date range for the time period you want:
@@ -67,32 +67,29 @@
           <button id="button" class="btn btn-default top-padding"> Submit </button>
         </div>
     </div>
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <div id="chart"></div>
-        </div>
-      </div>
-  </div>
-  <div class="container-fluid earthquakes">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center">
-        <div id="earthquake-stats">
-          <h3>There were <span id="eq_count"></span> earthquakes in that timeframe.</h3>
-          <h3> Their average magnitude was <span id="eq_mag_avg">1</span>.<h3>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center">
-        <br>
-        <span id="eq-biggest"><h3>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h3></span>
-      </div>
-    </div>
   </div>
   <div class="container-fluid">
+      <div class="row" id="stat-block-1">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          <div id="earthquake-stats">
+            <h3>There were <span id="eq_count"></span> earthquakes in that timeframe.</h3>
+            <h3> Their average magnitude was <span id="eq_mag_avg">1</span>.<h3>
+              <span id="eq-biggest"><h3>The biggest earthquake in that timeframe was a magnitude <span id="biggest-mag"></span>, in/near <span id="biggest-loc"></span>.</h3></span>
+          </div>
+        </div>
+      </div>
+    <div class="row" id="stat-block-2">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="center-block" id="chart"></div>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid" id="stat-block-3">
     <div class="row">
-      <div class='text-center earthquakes'><h3>Here are some of the largest earthquakes shown on a map:</h3></div>
-      <div class="center-block" id="map-container"></div>
+      <div class="col-md-6 col-md-offset-3">
+        <div class='text-center'><h3>Here are some of the largest earthquakes shown on a map:</h3></div>
+        <div class="center-block" id="map-container"></div>
+      </div>
     </div>
   </div>
   </body>
