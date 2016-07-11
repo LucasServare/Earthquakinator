@@ -1,20 +1,25 @@
 var today = moment().format('YYYY[-]MM[-]DD');
-var choice = $('input[name=time]:checked').val()
+var timeChoice = $('input[name=time]:checked').val();
+var magChoice = Number($('input[name=magnitude]:checked').val());
 
 $('input[name=time]').change(function() {
-  choice = $('input[name=time]:checked').val()
-  if (choice == 'custom') {
+  timeChoice = $('input[name=time]:checked').val();
+  if (timeChoice == 'custom') {
     $('#custom-choice').fadeIn(350);
     return;
   }
-  $('#custom-choice').hide()
+  $('#custom-choice').hide();
+});
+
+$('input[name=magnitude]').change(function() {
+  magChoice = Number($('input[name=magnitude]:checked').val());
 });
 
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
   disableButton();
   end_date = today;
-  switch(choice) {
+  switch(timeChoice) {
     case 'oneweek':
       start_date = moment().subtract(7, 'days').format('YYYY[-]MM[-]DD');
       break;
@@ -43,10 +48,14 @@ $("#button").click(function() {
     }
 });
 
+var myData;
+
 function getEarthquakeData() {
   var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
-  url += '&starttime='+ start_date + '&endtime=' + end_date;
+  url += '&starttime='+ start_date + '&endtime=' + end_date + '&minmagnitude=' + magChoice;
   $.get(url, function(data) {
+    myData = data;
+    try {
     //Change earthquake count.
     $("#eq_count").html(data.features.length);
     createDict(data);
@@ -62,7 +71,10 @@ function getEarthquakeData() {
     $('#stat-block-1').css('visibility', 'visible').hide().fadeIn(1000);
     $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000)
     $('#stat-block-3').delay(2000).css('visibility', 'visible').hide().fadeIn(1000);
-  });
+  }
+  catch(err) {
+    alert('There was an error. Please try reloading.');
+  }});
 }
 
 function disableButton() {
