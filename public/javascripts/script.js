@@ -48,32 +48,36 @@ $("#button").click(function() {
     }
 });
 
-var myData;
-
 function getEarthquakeData() {
   var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
   url += '&starttime='+ start_date + '&endtime=' + end_date + '&minmagnitude=' + magChoice;
   $.get(url, function(data) {
-    myData = data;
     try {
-    //Change earthquake count.
-    $("#eq_count").html(data.features.length);
-    createDict(data);
-    largestEarthquake(data);
-    createDatamap(data)
-    //Add all magnitudes to an array, and begin calculating the average magnitude.
-    magnitude_sum = 0;
+      //Change earthquake count.
+      $("#eq_count").html(data.features.length);
+      createDict(data);
+      largestEarthquake(data);
+      createDatamap(data)
+      //Add all magnitudes to an array, and begin calculating the average magnitude.
+      magnitude_sum = 0;
 
-    for (i=0; i < data.features.length; i++) {
-    magnitude_sum += data.features[i].properties.mag;
-    $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
-    }
-    $('#stat-block-1').css('visibility', 'visible').hide().fadeIn(1000);
-    $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000)
-    $('#stat-block-3').delay(2000).css('visibility', 'visible').hide().fadeIn(1000);
+      for (i=0; i < data.features.length; i++) {
+      magnitude_sum += data.features[i].properties.mag;
+      $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
+      }
+      $('#stat-block-1').css('visibility', 'visible').hide().fadeIn(1000);
+      $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000)
+      $('#stat-block-3').delay(2000).css('visibility', 'visible').hide().fadeIn(1000);
   }
   catch(err) {
-    alert('There was an error. Please try reloading.');
+    if (data.features.length === 0) {
+      alert('No earthquakes in that time period.');
+    }
+    else {
+      console.log(data.properties);
+      console.log(err);
+      alert('There was an error. Please try reloading.');
+    }
   }});
 }
 
@@ -268,35 +272,35 @@ $('#map-container').html('')
   radius: Math.pow(eqObjects[5].mag/5, 5) * 5,
   magnitude: eqObjects[5].mag,
   fillKey: 'earthquakes'
-},{
-  name: eqObjects[6].name,
-  latitude: eqObjects[6].latitude,
-  longitude: eqObjects[6].longitude,
-  radius: Math.pow(eqObjects[6].mag/5, 5) * 5,
-  magnitude: eqObjects[6].mag,
-  fillKey: 'earthquakes'
-},{
-  name: eqObjects[7].name,
-  latitude: eqObjects[7].latitude,
-  longitude: eqObjects[7].longitude,
-  radius: Math.pow(eqObjects[7].mag/5, 5) * 5,
-  magnitude: eqObjects[7].mag,
-  fillKey: 'earthquakes'
-},{
-  name: eqObjects[8].name,
-  latitude: eqObjects[8].latitude,
-  longitude: eqObjects[8].longitude,
-  radius: Math.pow(eqObjects[8].mag/5, 5) * 5,
-  magnitude: eqObjects[8].mag,
-  fillKey: 'earthquakes'
-},{
-  name: eqObjects[9].name,
-  latitude: eqObjects[9].latitude,
-  longitude: eqObjects[9].longitude,
-  radius: Math.pow(eqObjects[9].mag/5, 5) * 5,
-  magnitude: eqObjects[9].mag,
-  fillKey: 'earthquakes'
-}];
+  },{
+    name: eqObjects[6].name,
+    latitude: eqObjects[6].latitude,
+    longitude: eqObjects[6].longitude,
+    radius: Math.pow(eqObjects[6].mag/5, 5) * 5,
+    magnitude: eqObjects[6].mag,
+    fillKey: 'earthquakes'
+  },{
+    name: eqObjects[7].name,
+    latitude: eqObjects[7].latitude,
+    longitude: eqObjects[7].longitude,
+    radius: Math.pow(eqObjects[7].mag/5, 5) * 5,
+    magnitude: eqObjects[7].mag,
+    fillKey: 'earthquakes'
+  },{
+    name: eqObjects[8].name,
+    latitude: eqObjects[8].latitude,
+    longitude: eqObjects[8].longitude,
+    radius: Math.pow(eqObjects[8].mag/5, 5) * 5,
+    magnitude: eqObjects[8].mag,
+    fillKey: 'earthquakes'
+  },{
+    name: eqObjects[9].name,
+    latitude: eqObjects[9].latitude,
+    longitude: eqObjects[9].longitude,
+    radius: Math.pow(eqObjects[9].mag/5, 5) * 5,
+    magnitude: eqObjects[9].mag,
+    fillKey: 'earthquakes'
+  }];
 
   //Draw earthquakes on map
   map.bubbles(earthquakes, {
