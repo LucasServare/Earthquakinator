@@ -17,6 +17,7 @@ $('input[name=magnitude]').change(function() {
 
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
+  $('.flash').html(""); //Reset the flash in case it's been used.
   disableButton();
   end_date = today;
   switch(timeChoice) {
@@ -71,7 +72,16 @@ function getEarthquakeData() {
   }
   catch(err) {
     if (data.features.length === 0) {
-      alert('No earthquakes in that time period.');
+      //Change flash to alert.
+      $('.flash').html("<div class='row'>" +
+      "<div class='col-xl-6 col-xl-offset-3 text-center center-block'>" +
+        "<div class='alert alert-danger alert-dismissible' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+          "<strong>No earthquakes were found</strong><br>. Try decreasing the minimum magnitude or increasing the dates surveyed." +
+        "</div>" +
+      "</div>" +
+    "</div>");
+    return;
     }
     else {
       console.log(data.properties);
