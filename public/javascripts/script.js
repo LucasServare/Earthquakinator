@@ -84,7 +84,6 @@ function getEarthquakeData() {
     return;
     }
     else {
-      console.log(data.properties);
       console.log(err);
       alert('There was an error. Please try reloading.');
     }
