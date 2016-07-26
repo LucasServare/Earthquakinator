@@ -59,7 +59,7 @@ function getEarthquakeData() {
       $("#eq_count").html(data.features.length);
       createDict(data);
       largestEarthquake(data);
-      createDatamap(data)
+      createDatamap(data);
       //Add all magnitudes to an array, and begin calculating the average magnitude.
       magnitude_sum = 0;
 
@@ -68,7 +68,7 @@ function getEarthquakeData() {
       $("#eq_mag_avg").html(Math.round((magnitude_sum/data.features.length)));
       }
       $('#stat-block-1').css('visibility', 'visible').hide().fadeIn(1000);
-      $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000)
+      $('#stat-block-2').delay(1000).css('visibility', 'visible').hide().fadeIn(1000);
       $('#stat-block-3').delay(2000).css('visibility', 'visible').hide().fadeIn(1000);
   }
   catch(err) {
@@ -110,7 +110,7 @@ function createDict(arr) {
 	}
 	//Run through magnitudes_array and round it to the nearest tenth.
 	for (i = 0; i < magnitudes_array.length; i++) {
-		magnitudes_array[i] = Math.round(magnitudes_array[i] * 10)/10
+		magnitudes_array[i] = Math.round(magnitudes_array[i] * 10)/10;
 	}
 	distinctValuesCount(magnitudes_array);
 }
@@ -133,7 +133,7 @@ function distinctValuesCount(arr) {
 			 already_exists = true;
 		 }
 	 }
-		 if (already_exists == false) {
+		 if (already_exists === false) {
 			 count_array.push([current_num, count]);
 		 }
 	 }
@@ -153,7 +153,9 @@ magnitudes_y.unshift('Occurences');
 	var chart = c3.generate({
 		tooltip: {
 			format: {
-				title: function (d) {return 'Magnitude: ' + d }
+				title: function (d) {
+          return 'Magnitude: ' + d;
+        }
 			}
 		},
 		data: {
@@ -194,8 +196,6 @@ function largestEarthquake(data) {
   $("#biggest-loc").html(largest.properties.place);
 }
 
-//Grab data from external api and add them as objects to an array.
-
 function createDatamap(data) {
   //Since #map-container starts hidden, its height and width are set to 0. We use this to  set the height and width after the div is shown.
   $('#map-container').height('100%');
@@ -203,7 +203,7 @@ function createDatamap(data) {
 
   eqObjects = [];
   for (i=0; i < data.features.length; i++) {
-    if (data.features[i].properties.mag != null) {
+    if (data.features[i].properties.mag !== null) {
       eqObjects.push({name: data.features[i].properties.place, mag: data.features[i].properties.mag, longitude: data.features[i].geometry.coordinates[0],
       latitude: data.features[i].geometry.coordinates[1]});
     }
@@ -224,7 +224,7 @@ function createDatamap(data) {
 
 function drawDatamap() {
 //Clear the map if one exists. Prevents creating duplicate maps.
-$('#map-container').html('')
+$('#map-container').html('');
 
   var map = new Datamap({
       element: document.getElementById('map-container'), //tried using Jquery here, didn't work.
@@ -240,7 +240,7 @@ $('#map-container').html('')
       }
   });
 
-  var earthquakes = []
+  var earthquakes = [];
   for (i=0; i < eqObjects.length; i++) {
     earthquakes.push({
       name: eqObjects[i].name,
@@ -249,7 +249,7 @@ $('#map-container').html('')
       radius: Math.pow(eqObjects[i].mag/5, 5) * 10,
       magnitude: eqObjects[i].mag,
       fillKey: 'earthquakes'
-    })
+    });
   }
 
   //Draw earthquakes on map
