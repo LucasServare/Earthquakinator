@@ -18,6 +18,7 @@ $('input[name=magnitude]').change(function() {
 //On user request, perform an api call and get earthquake data.
 $("#button").click(function() {
   $('.flash').html(""); //Reset the flash in case it's been used.
+  resetPanels();
   disableButton();
   end_date = today;
   switch(timeChoice) {
@@ -266,4 +267,10 @@ $('#map-container').html('')
   $(window).resize(function() {
     map.resize();
   });
+}
+
+function resetPanels() {
+  $('#stat-block-1').css('visibility', 'hidden');
+  $('#stat-block-1').css('visibility', 'hidden');
+  $('#stat-block-1').css('visibility', 'hidden');
 }
