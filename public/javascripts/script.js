@@ -51,7 +51,7 @@ $("#button").click(function() {
 });
 
 function getEarthquakeData() {
-  var url = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
+  var url = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
   url += '&starttime='+ start_date + '&endtime=' + end_date + '&minmagnitude=' + magChoice;
   $.get(url, function(data) {
     try {
