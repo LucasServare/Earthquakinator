@@ -273,4 +273,6 @@ function resetPanels() {
   $('#stat-block-1').css('visibility', 'hidden');
   $('#stat-block-1').css('visibility', 'hidden');
   $('#stat-block-1').css('visibility', 'hidden');
+  $('#map-container').html(''); //Reset the map.
+  $('#chart').html(''); //Reset the chart.
 }
