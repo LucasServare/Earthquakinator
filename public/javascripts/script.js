@@ -225,7 +225,7 @@ function createDatamap(data) {
 function drawDatamap() {
 //Clear the map if one exists. Prevents creating duplicate maps.
 $('#map-container').html('');
-
+$('#map-container-text').delay(1000).css('visibility', 'visible').hide().fadeIn(1000);
   var map = new Datamap({
       element: document.getElementById('map-container'), //tried using Jquery here, didn't work.
       scope: 'world',
@@ -271,8 +271,9 @@ $('#map-container').html('');
 
 function resetPanels() {
   $('#stat-block-1').css('visibility', 'hidden');
-  $('#stat-block-1').css('visibility', 'hidden');
-  $('#stat-block-1').css('visibility', 'hidden');
+  $('#stat-block-2').css('visibility', 'hidden');
+  $('#stat-block-3').css('visibility', 'hidden');
+  $('#map-container-text').css('visibility', 'hidden');
   $('#map-container').html(''); //Reset the map.
   $('#chart').html(''); //Reset the chart.
 }

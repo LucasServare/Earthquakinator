@@ -35,3 +35,7 @@ a {
 #stat-block-3 {
   visibility: hidden;
 }
+
+#map-container-text {
+  visibility: hidden;
+}
