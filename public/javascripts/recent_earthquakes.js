@@ -2,13 +2,13 @@ function earthquakesInLastHour(choice) {
   var url;
   switch(choice) {
     case 'hour':
-      url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
+      url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
       break;
     case 'day':
-      url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
+      url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
       break;
     case 'week':
-      url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+      url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
       break;
   }
   $.get(url, function(data) {
