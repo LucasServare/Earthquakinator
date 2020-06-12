@@ -12,5 +12,7 @@ COPY . .
 # Get our packages installed.
 RUN npm install
 
+EXPOSE 80
+
 # Start it up!
 CMD npm start

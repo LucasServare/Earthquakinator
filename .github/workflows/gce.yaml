@@ -9,6 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
   GCE_INSTANCE: instance-1
   GCE_INSTANCE_ZONE: us-east4-c
+  PORT: 80
 
 jobs:
   setup-build-publish-deploy:
@@ -45,4 +46,5 @@ jobs:
       run: |-
         gcloud compute instances update-container "$GCE_INSTANCE" \
           --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+          --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
+          --container-env "PORT=$PORT"
