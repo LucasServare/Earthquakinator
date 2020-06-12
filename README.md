@@ -13,8 +13,8 @@ Tons more opportunities to go!
 
 To-do:
 
-*Explore using canary deploys
-*Use something like varnish or squid for http caching.
-*Set up some monitoring (playing around with the elk stack would be cool, could also flesh out gcp's built in monitoring)
-*Play around with canary deploys
-*Stop being cheap and buy a domain and link that to google's cloud dns
+1. Explore using canary deploys
+2. Use something like varnish or squid for http caching.
+3. Set up some monitoring (playing around with the elk stack would be cool, could also flesh out gcp's built in monitoring)
+4. Play around with canary deploys
+5. Stop being cheap and buy a domain and link that to google's cloud dns
