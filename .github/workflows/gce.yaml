@@ -54,7 +54,7 @@ jobs:
 
     # Create a new instance to host our app.
     - name: Create
-        run: |-
+      run: |-
         gcloud beta compute --project=earthquakinator instances create-with-container earthquakinator \
         --zone "$GCE_INSTANCE_ZONE" \
         --machine-type=f1-micro \
