@@ -1,4 +1,4 @@
-name: Build and Deploy to Google Compute Engine
+name: Build and Deploy to Google Compute Engine, install Datadog agent.
 
 on:
   push:
@@ -10,6 +10,7 @@ env:
   GCE_INSTANCE: instance-1
   GCE_INSTANCE_ZONE: us-east4-c
   PORT: 80
+  DD_API_KEY: ${{ secrets.DD_API_KEY }}
 
 jobs:
   setup-build-publish-deploy:
@@ -48,3 +49,11 @@ jobs:
           --zone "$GCE_INSTANCE_ZONE" \
           --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
           --container-env "PORT=$PORT"
+
+    - name: Install Datadog agent
+      run: | -
+        gcloud compute ssh "$GCE_INSTANCE" \
+        --zone "$GCE_INSTANCE_ZONE"
+        --quiet
+        --ssh-key-expire-after=3m
+        --command "DOCKER_CONTENT_TRUST=1 docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=$DD_API_KEY datadog/agent:7"
