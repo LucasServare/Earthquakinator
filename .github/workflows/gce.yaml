@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
-  GCE_INSTANCE: instance-1
+  GCE_INSTANCE: earthquakinator
   GCE_INSTANCE_ZONE: us-east4-c
   PORT: 80
   DD_API_KEY: ${{ secrets.DD_API_KEY }}
@@ -43,13 +43,33 @@ jobs:
       run: |-
         docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
-    - name: Deploy
+    # Delete the existing version of this instance.
+    # This isn't optimal as it does introduce some down time.
+    # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
+    - name: Delete
       run: |-
-        gcloud compute instances update-container "$GCE_INSTANCE" \
-          --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
-          --container-env "PORT=$PORT"
+        gcloud compute instances delete earthquakinator \
+        --zone=us-east4-c \
+        --quiet
 
+    # Create a new instance to host our app.
+    - name: Create
+        run: |-
+        gcloud beta compute --project=earthquakinator instances create-with-container earthquakinator \
+        --zone "$GCE_INSTANCE_ZONE" \
+        --machine-type=f1-micro \
+        --subnet=default \
+        --network-tier=STANDARD \
+        --tags=http-server,https-server \
+        --image=cos-69-10895-385-0 \
+        --image-project=cos-cloud \
+        --boot-disk-size=10GB \
+        --boot-disk-type=pd-standard \
+        --boot-disk-device-name=earthquakinator \
+        --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
+        --container-env "PORT=$PORT"
+
+    # Install the datadog agent on our newly created VM.
     - name: Install Datadog agent
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" \
