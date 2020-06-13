@@ -51,7 +51,7 @@ jobs:
           --container-env "PORT=$PORT"
 
     - name: Install Datadog agent
-      run: | -
+      run: |-
         gcloud compute ssh "$GCE_INSTANCE" \
         --zone "$GCE_INSTANCE_ZONE" \
         --quiet \
