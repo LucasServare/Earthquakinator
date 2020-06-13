@@ -67,7 +67,8 @@ jobs:
         --boot-disk-type=pd-standard \
         --boot-disk-device-name=earthquakinator \
         --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
-        --container-env "PORT=$PORT"
+        --container-env "PORT=$PORT" \
+        --quiet
 
     # Install the datadog agent on our newly created VM.
     - name: Install Datadog agent
