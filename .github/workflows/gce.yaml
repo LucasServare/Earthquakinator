@@ -53,7 +53,7 @@ jobs:
     - name: Install Datadog agent
       run: | -
         gcloud compute ssh "$GCE_INSTANCE" \
-        --zone "$GCE_INSTANCE_ZONE"
-        --quiet
-        --ssh-key-expire-after=3m
+        --zone "$GCE_INSTANCE_ZONE" \
+        --quiet \
+        --ssh-key-expire-after=3m \
         --command "DOCKER_CONTENT_TRUST=1 docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=$DD_API_KEY datadog/agent:7"
