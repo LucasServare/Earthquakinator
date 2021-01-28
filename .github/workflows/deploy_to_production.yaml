@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Auth
+    - name: Configure Docker to Auth with GCP
     # Setup gcloud CLI
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
@@ -33,26 +33,26 @@ jobs:
         gcloud --quiet auth configure-docker
 
     # Build the Docker image
-    - name: Build
+    - name: Build Docker Image
       run: |-
         docker build --tag "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" .
 
     # Push the Docker image to Google Container Registry
-    - name: Publish
+    - name: Publish Docker Image To Google Container Registry
       run: |-
         docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
     # Delete the existing version of this instance.
     # This isn't optimal as it does introduce some down time.
     # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
-    - name: Delete
+    - name: Delete Existing Infra
       run: |-
         gcloud compute instances delete earthquakinator \
         --zone=us-east4-c \
         --quiet
 
     # Create a new instance to host our app.
-    - name: Create
+    - name: Create New Infra
       run: |-
         gcloud compute instances create-with-container earthquakinator \
         --zone "$GCE_INSTANCE_ZONE" \
@@ -71,7 +71,7 @@ jobs:
         --quiet
 
     # Install the datadog agent on our newly created VM.
-    - name: Install Datadog agent
+    - name: Install Datadog Agent
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" \
         --zone "$GCE_INSTANCE_ZONE" \
