@@ -46,19 +46,19 @@ jobs:
         docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
   provision_infra:
-    - name: Provision Infra
-      runs-on: ubuntu-latest
-      working-directory: $TERRAFORM_WORKING_DIR
+  - name: Provision Infra
+    runs-on: ubuntu-latest
+    working-directory: $TERRAFORM_WORKING_DIR
 
-      steps:
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1.2.1
-        with:
-          # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
-          terraform_wrapper: false
+    steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
+        terraform_wrapper: false
 
-        run: terraform init
-        # run: terraform plan
+      run: terraform init
+      # run: terraform plan
 
 
 
