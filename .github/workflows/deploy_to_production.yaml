@@ -48,7 +48,10 @@ jobs:
   provision_infra:
     name: Provision Infra
     runs-on: ubuntu-latest
-    working-directory: $TERRAFORM_WORKING_DIR
+    defaults:
+      run:
+        shell: bash
+        working-directory: $TERRAFORM_WORKING_DIR
 
     steps:
     - name: Setup Terraform
