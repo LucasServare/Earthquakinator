@@ -53,9 +53,9 @@ jobs:
       steps:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
-          with:
-            # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
-            terraform_wrapper: false
+        with:
+          # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
+          terraform_wrapper: false
 
         run: terraform init
         # run: terraform plan
