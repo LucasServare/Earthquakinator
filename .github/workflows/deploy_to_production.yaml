@@ -12,6 +12,8 @@ env:
   PORT: 80
   DD_API_KEY: ${{ secrets.DD_API_KEY }}
   IP_ADDRESS: 35.212.46.145
+  TERRAFORM_WORKING_DIR: ../../terraform
+  ${{ env.tf_actions_working_dir }}
 
 jobs:
   setup-build-publish-deploy:
@@ -44,39 +46,56 @@ jobs:
       run: |-
         docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
-    # Delete the existing version of this instance.
-    # This isn't optimal as it does introduce some down time.
-    # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
-    - name: Delete Existing Infra
-      run: |-
-        gcloud compute instances delete earthquakinator \
-        --zone=us-east4-c \
-        --quiet
+  provision_infra:
+    - name: Provision Infra
+      runs-on: ubuntu-latest
+      working-directory: $TERRAFORM_WORKING_DIR
 
-    # Create a new instance to host our app.
-    - name: Create New Infra
-      run: |-
-        gcloud compute instances create-with-container earthquakinator \
-        --zone "$GCE_INSTANCE_ZONE" \
-        --machine-type=f1-micro \
-        --subnet=default \
-        --network-tier=STANDARD \
-        --tags=http-server,https-server \
-        --image=cos-69-10895-385-0 \
-        --image-project=cos-cloud \
-        --boot-disk-size=10GB \
-        --boot-disk-type=pd-standard \
-        --boot-disk-device-name=earthquakinator \
-        --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
-        --container-env "PORT=$PORT" \
-        --address $IP_ADDRESS \
-        --quiet
+      steps:
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+          with:
+            # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
+            terraform_wrapper: false
 
-    # Install the datadog agent on our newly created VM.
-    - name: Install Datadog Agent
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" \
-        --zone "$GCE_INSTANCE_ZONE" \
-        --quiet \
-        --ssh-key-expire-after=3m \
-        --command "DOCKER_CONTENT_TRUST=1 docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=$DD_API_KEY datadog/agent:7"
+        run: terraform init
+        # run: terraform plan
+
+
+
+    # # Delete the existing version of this instance.
+    # # This isn't optimal as it does introduce some down time.
+    # # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
+    # - name: Delete Existing Infra
+    #   run: |-
+    #     gcloud compute instances delete earthquakinator \
+    #     --zone=us-east4-c \
+    #     --quiet
+    #
+    # # Create a new instance to host our app.
+    # - name: Create New Infra
+    #   run: |-
+    #     gcloud compute instances create-with-container earthquakinator \
+    #     --zone "$GCE_INSTANCE_ZONE" \
+    #     --machine-type=f1-micro \
+    #     --subnet=default \
+    #     --network-tier=STANDARD \
+    #     --tags=http-server,https-server \
+    #     --image=cos-69-10895-385-0 \
+    #     --image-project=cos-cloud \
+    #     --boot-disk-size=10GB \
+    #     --boot-disk-type=pd-standard \
+    #     --boot-disk-device-name=earthquakinator \
+    #     --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" \
+    #     --container-env "PORT=$PORT" \
+    #     --address $IP_ADDRESS \
+    #     --quiet
+    #
+    # # Install the datadog agent on our newly created VM.
+    # - name: Install Datadog Agent
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" \
+    #     --zone "$GCE_INSTANCE_ZONE" \
+    #     --quiet \
+    #     --ssh-key-expire-after=3m \
+    #     --command "DOCKER_CONTENT_TRUST=1 docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=$DD_API_KEY datadog/agent:7"
