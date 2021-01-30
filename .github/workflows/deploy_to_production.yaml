@@ -54,9 +54,10 @@ jobs:
         working-directory: $TERRAFORM_WORKING_DIR
 
     steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1.2.1
-      uses: actions/checkout@v2
       with:
         # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
         terraform_wrapper: false
