@@ -1,9 +1,6 @@
 name: Build and deploy to our application to Google Container Registry as a container. Provision and then tear down infra.
 
-on:
-  push:
-    branches:
-    - master
+on: workflow_dispatch
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
@@ -71,7 +68,7 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    - name: Sleep for 30 seconds
+    - name: Sleep for 60 seconds.
       uses: jakejarvis/wait-action@a5360caf7f960b5e84dae7b70dfab7e3e420dc4a
       with:
         time: '60s'
