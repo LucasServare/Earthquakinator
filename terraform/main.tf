@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("tf_creds.json")
+  # credentials = file("tf_creds.json")
   project = "earthquakinator"
   region  = "us-east4"
   zone    = "us-east4-c"

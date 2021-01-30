@@ -60,7 +60,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-      name: export GCP Creds
+    - name: export GCP Creds
       run: export GOOGLE_APPLICATION_CREDENTIALS={{$TF_CREDS}}
 
     - name: Terraform Plan
