@@ -51,15 +51,20 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+
     steps:
     - uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
-      id: init
       run: terraform init
 
+    - name: Terraform Plan
+      run: terraform plan
 
+    - name: Terraform Apply
+      run: terraform apply
+      
     # # Delete the existing version of this instance.
     # # This isn't optimal as it does introduce some down time.
     # # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
