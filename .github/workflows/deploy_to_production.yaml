@@ -71,6 +71,16 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@a5360caf7f960b5e84dae7b70dfab7e3e420dc4a
+      with:
+        time: '60s'
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
     # # Delete the existing version of this instance.
     # # This isn't optimal as it does introduce some down time.
     # # TODO: Use a rolling restart on a managed instance group to more gracefully handle deploys.
