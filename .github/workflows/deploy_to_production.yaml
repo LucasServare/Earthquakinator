@@ -1,5 +1,5 @@
-name: Build and Deploy to Google Compute Engine, install Datadog agent.
- 
+name: Build and deploy to our application to Google Container Registry as a container. Provision and then tear down infra.
+
 on:
   push:
     branches:
@@ -15,7 +15,7 @@ env:
   TERRAFORM_WORKING_DIR: ./terraform
 
 jobs:
-  setup-build-publish-deploy:
+  setup_build_publish_deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
