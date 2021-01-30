@@ -62,7 +62,7 @@ jobs:
         # the wrapper script is overkill for what we need, but will provide additional output if we enable it.
         terraform_wrapper: false
 
-    - run: terraform init
+    - run: la -la
     # run: terraform plan
 
 
