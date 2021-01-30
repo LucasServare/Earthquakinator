@@ -50,7 +50,7 @@ jobs:
     name: Provision Infra
     runs-on: ubuntu-latest
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: {{ fromJSON(secrets.TF_CREDS) }}
+      GOOGLE_APPLICATION_CREDENTIALS: {{ toJson(secrets.TF_CREDS) }}
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
