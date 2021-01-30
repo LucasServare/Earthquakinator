@@ -49,6 +49,8 @@ jobs:
   provision_infra:
     name: Provision Infra
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: {{secrets.TF_CREDS}}
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
@@ -59,9 +61,6 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-
-    - name: export GCP Creds
-      run: export GOOGLE_APPLICATION_CREDENTIALS={{$TF_CREDS}}
 
     - name: Terraform Plan
       run: terraform plan
