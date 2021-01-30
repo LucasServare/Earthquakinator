@@ -49,8 +49,6 @@ jobs:
   provision_infra:
     name: Provision Infra
     runs-on: ubuntu-latest
-    env:
-      GOOGLE_CREDENTIALS: {{ secrets.GOOGLE_CREDENTIALS }}
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
@@ -61,12 +59,18 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
+      env:
+        GOOGLE_CREDENTIALS: {{ secrets.GOOGLE_CREDENTIALS }}
 
     - name: Terraform Plan
       run: terraform plan
+      env:
+        GOOGLE_CREDENTIALS: {{ secrets.GOOGLE_CREDENTIALS }}
 
     - name: Terraform Apply
       run: terraform apply
+      env:
+        GOOGLE_CREDENTIALS: {{ secrets.GOOGLE_CREDENTIALS }}
 
     # # Delete the existing version of this instance.
     # # This isn't optimal as it does introduce some down time.
