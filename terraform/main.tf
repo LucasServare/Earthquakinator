@@ -35,6 +35,10 @@ resource "google_compute_instance" "earthquakinator" {
       nat_ip = google_compute_address.earthquakinator_static_ip.address
     }
   }
+
+  metadata = {
+    gce-container-declaration = "us.gcr.io/earthquakinator/earthquakinator:latest"
+  }
 }
 
 # Create a static IP that will be assigned to our instance. This will allow users to hit it externally.
