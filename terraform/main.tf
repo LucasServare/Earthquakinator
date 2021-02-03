@@ -37,7 +37,7 @@ resource "google_compute_instance" "earthquakinator" {
   }
 
   metadata = {
-    gce-container-declaration = "us.gcr.io/earthquakinator/earthquakinator:latest"
+    gce-container-declaration = "gcr.io/earthquakinator/earthquakinator-image:latest"
   }
 }
 
