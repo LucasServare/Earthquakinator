@@ -35,7 +35,7 @@ jobs:
     # Build the Docker image
     - name: Build Docker Image
       run: |-
-        docker build --tag "us-east4-docker.pkg.dev/$PROJECT_ID/earthquakinator-images/$GCE_INSTANCE-image:$GITHUB_SHA" .
+        docker build --tag "us-east4-docker.pkg.dev/$PROJECT_ID/earthquakinator-images/$GCE_INSTANCE-image:$GITHUB_SHA:latest" .
 
     - name: Publish Docker Image To Google Artifact Registry
       run: |-
