@@ -35,12 +35,12 @@ jobs:
     # Build the Docker image
     - name: Build Docker Image
       run: |-
-        docker build --tag "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" .
+        docker build --tag "us-east4-docker.pkg.dev/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" .
 
     # Push the Docker image to Google Container Registry
     - name: Publish Docker Image To Google Container Registry
       run: |-
-        docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+        docker push "us-east4-docker.pkg.dev/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
   provision_infra:
     name: Provision Infra
