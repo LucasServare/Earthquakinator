@@ -39,7 +39,7 @@ jobs:
 
     - name: Publish Docker Image To Google Artifact Registry
       run: |-
-        docker push "us-east4-docker.pkg.dev/$PROJECT_ID/earthquakinator-images/$GCE_INSTANCE-image:$GITHUB_SHA" .
+        docker push "us-east4-docker.pkg.dev/$PROJECT_ID/earthquakinator-images/$GCE_INSTANCE-image:$GITHUB_SHA"
 
   provision_infra:
     name: Provision Infra
