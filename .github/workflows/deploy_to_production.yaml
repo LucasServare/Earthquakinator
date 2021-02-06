@@ -1,4 +1,4 @@
-name: Build and deploy to our application to Google Container Registry as a container. Provision and then tear down infra.
+name: Production Deploy
 
 on: workflow_dispatch
 
@@ -13,7 +13,7 @@ env:
 
 jobs:
   setup_build_publish_deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Build and push our docker image to Google Artifact Registry.
     runs-on: ubuntu-latest
 
     steps:
