@@ -24,7 +24,7 @@ resource "google_compute_instance" "earthquakinator" {
   boot_disk {
     auto_delete = "true"
     initialize_params {
-      image     = "projects/cos-cloud/global/images/cos-stable-85-13310-1209-3"
+      image     = "projects/centos-cloud/global/images/centos-8-v20210122"
       size        = "10"
     }
   }
