@@ -30,7 +30,7 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
-        gcloud --quiet auth configure-docker
+        gcloud --quiet auth configure-docker us-east4-docker.pkg.dev
 
     # Build the Docker image
     - name: Build Docker Image
