@@ -37,7 +37,8 @@ resource "google_compute_instance" "earthquakinator" {
   }
 
   metadata = {
-    gce-container-declaration = "us-east4-docker.pkg.dev/earthquakinator/earthquakinator-images/earthquakinator-image:7f0d56ecf9eccc65fb51c7719cb099f54c8624bf"
+    # gce-container-declaration = "us-east4-docker.pkg.dev/earthquakinator/earthquakinator-images/earthquakinator-image:latest"
+    startup-script = "docker run us-east4-docker.pkg.dev/earthquakinator/earthquakinator-images/earthquakinator-image:latest"
   }
 }
 
