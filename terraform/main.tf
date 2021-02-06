@@ -25,7 +25,7 @@ resource "google_compute_instance" "earthquakinator" {
     auto_delete = "true"
     initialize_params {
       image     = "projects/centos-cloud/global/images/centos-8-v20210122"
-      size        = "10"
+      size        = "20"
     }
   }
 
@@ -38,11 +38,15 @@ resource "google_compute_instance" "earthquakinator" {
 
   metadata = {
     startup-script = <<EOT
-                      curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.0.0/docker-credential-gcr_linux_amd64-2.0.0.tar.gz" | tar xz --to-stdout ./docker-credential-gcr \ > /usr/bin/docker-credential-gcr && chmod +x /usr/bin/docker-credential-gcr
+                      sudo yum install -y yum-utils
 
-                      docker-credential-gcr configure-docker --registries=us-east4-docker.pkg.dev
+                      sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-                      docker run us-east4-docker.pkg.dev/earthquakinator/earthquakinator-images/earthquakinator-image:latest
+                      sudo yum -y install docker-ce docker-ce-cli containerd.io
+
+                      sudo systemctl start docker
+
+                      sudo docker run us-east4-docker.pkg.dev/earthquakinator/earthquakinator-images/earthquakinator-image:latest
                       EOT
   }
 }
