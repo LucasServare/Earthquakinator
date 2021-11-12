@@ -18,3 +18,13 @@ To-do:
 3. Add Redis somewhere here, just for fun.
 4. Set up some monitoring (playing around with the elk stack would be cool, could also flesh out gcp's built in monitoring).
 5. Stop being cheap and buy a domain.
+
+Prereqs
+
+Docker
+
+Getting Started
+To get a local copy up and running, use this:
+
+docker build -t earthquakinator .
+docker run -dp 3000:3000 earthquakinator

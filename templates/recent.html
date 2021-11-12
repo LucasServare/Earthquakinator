@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Earthquakinator </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Load Jquery -->
+      <script src="https://code.jquery.com/jquery-2.2.3.js"   integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4="   crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='/static/stylesheets/style.css'>
+    <!-- Load c3.css -->
+    <link rel="stylesheet" href='/static/stylesheets/c3.css' type="text/css">
+    <!-- Load d3.js and c3.js -->
+  <script src='/static/stylesheets/d3.min.js' charset="utf-8"></script>
+  <script src='/static/stylesheets/c3.min.js'></script>
+  <!-- Load Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Earthquakinator</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Earthquake Data</a><li>
+        <li><a href="/recent">Recent Earthquakes</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+        <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="time" id="hour" value="hour" autocomplete="off" checked> Hour
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="day" value="day" autocomplete="off"> Day
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="time" id="week" value="week" autocomplete="off"> Week
+        </label>
+      </div>
+      <br>
+      <span id="eq-last"></span>
+    </div>
+  </div>
+</div>
+  </body>
+  <script type="text/javascript" src="/static/javascript/recent_earthquakes.js"></script>
+</html>
